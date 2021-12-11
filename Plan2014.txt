@@ -1,0 +1,3 @@
+cas,matematica,asdas,1
+c,Programcion,as,4
+ca,Economia,asd,5
