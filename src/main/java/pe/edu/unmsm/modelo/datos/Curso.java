@@ -5,6 +5,8 @@
  */
 package pe.edu.unmsm.modelo.datos;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Windows 10 Pro
@@ -14,15 +16,18 @@ public class Curso {
     
     public String codigo;
     public String nombre;
-    public String codPreReq;
+    public int numPrerequisito;
+    public ArrayList<String> codPreReq;
+    
     public int creditos;
 
     public Curso() {
     }
 
-    public Curso(String codigo, String nombre, String codPreReq, int creditos) {
+    public Curso(String codigo, String nombre,int numPrerequisito, ArrayList<String> codPreReq, int creditos) {
         this.codigo = codigo;
         this.nombre = nombre;
+        this.numPrerequisito=numPrerequisito;
         this.codPreReq = codPreReq;
         this.creditos = creditos;
     }

@@ -12,11 +12,11 @@ import java.lang.reflect.Field;
  * @author Windows 10 Pro
  */
 public class env {
-    public static int IterMax=1000;
-    public static int numCursos=100;
+    public static int IterMax=100;
+    public static int numCursos=66;
     public static int numPeriodos=10;
-    public static int numHormigas=30;
-    public static int minCursosPermitidos=5;
+    public static int numHormigas=8;
+    public static int minCursosPermitidos=4;
     public static int maxCursosPermitidos=7;
     public static int minCreditosPorPeriodo=11;
     public static int maxCreditosPorPeriodo=24;

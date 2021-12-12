@@ -15,7 +15,6 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-
 /**
  *
  * @author Windows 10 Pro
@@ -23,9 +22,7 @@ import java.util.StringTokenizer;
 public class Malla {
 
     public static ArrayList<Curso> cursos = new ArrayList<>();
-    public static Periodo[] planOptimizado=new Periodo[env.numPeriodos];
-    
-    
+    public static Periodo[] planOptimizado = new Periodo[env.numPeriodos];
 
     public static void evaluarReglas(CacheRb cache, int[][] grafo, int periodo) {
         int[] sumaCreditos = obetenerSumCreditosPorPeriodo(grafo);
@@ -95,12 +92,30 @@ public class Malla {
 
     }
 
+    public static int hallarMaxInt(int[] data) {
+
+        int maxValue = 0;
+
+        for (int i = 0; i < data.length; i++) {
+
+            if (data[i] > maxValue) {
+                maxValue = data[i];
+            }
+
+        }
+
+        return (maxValue);
+
+    }
+
     public static int seleccionarPeriodoMasCreditos(int[][] grafo) {
         int[] sumaCreditosPorPeriodo = obetenerSumCreditosPorPeriodo(grafo);
         int maxPeriodo = 0;
+        int valorMax = 0;
         for (int i = 0; i < sumaCreditosPorPeriodo.length; i++) {
-            if (sumaCreditosPorPeriodo[i] > maxPeriodo) {
-                maxPeriodo = sumaCreditosPorPeriodo[i];
+            if (sumaCreditosPorPeriodo[i] > valorMax) {
+                valorMax = sumaCreditosPorPeriodo[i];
+                maxPeriodo = i;
             }
         }
 
@@ -109,11 +124,12 @@ public class Malla {
 
     public static int seleccionarPeriodoMenosCreditos(int[][] grafo) {
         int[] sumaCreditosPorPeriodo = obetenerSumCreditosPorPeriodo(grafo);
-        int minPeriodo = sumaCreditosPorPeriodo[0];
-
+        int minPeriodo = 0;
+        int valorMin = 1000;
         for (int i = 1; i < sumaCreditosPorPeriodo.length; i++) {
-            if (sumaCreditosPorPeriodo[i] < minPeriodo) {
-                minPeriodo = sumaCreditosPorPeriodo[i];
+            if (sumaCreditosPorPeriodo[i] < valorMin) {
+                valorMin = sumaCreditosPorPeriodo[i];
+                minPeriodo = i;
             }
         }
 
@@ -121,7 +137,7 @@ public class Malla {
     }
 
     public static ArrayList<Integer> buscarCursosPorPeriodo(int periodo, int[][] grafo) {
-
+        //System.out.println("PERIODOMAYOR:" + periodo);
         ArrayList<Integer> cursosDelPeriodo = new ArrayList<>();
 
         for (int i = 0; i < env.numCursos; i++) {
@@ -140,29 +156,132 @@ public class Malla {
                 return i;
             }
         }
-        System.out.println("Curso no encontrado");
+        //System.out.println("Curso no encontrado");
         return -1;
     }
 
-    public static int buscarPosCurso(String codigo) {
+    public static int buscarPostCurso(String codigo, int[][] grafo) {
 
+        ArrayList<Integer> postCursos = new ArrayList<>();
+        ArrayList<Integer> postPeriodos = new ArrayList<>();
         for (int i = 0; i < cursos.size(); i++) {
-            if (cursos.get(i).codPreReq.equalsIgnoreCase(codigo)) {
-                return i;
+
+            for (int j = 0; j < cursos.get(i).codPreReq.size(); j++) {
+                if (cursos.get(i).codPreReq.get(j).equalsIgnoreCase(codigo)) {
+                    postCursos.add(i);
+                    for (int k = 0; k < env.numPeriodos; k++) {
+                        if (grafo[i][k] == 1) {
+                            postPeriodos.add(k);
+                        }
+                    }
+                }
             }
+
         }
-        System.out.println("Post curso no encontrado");
+        int minPeriodos = 1000;
+        int minCurso = 1000;
+        if (!(postCursos.isEmpty() || postPeriodos.isEmpty())) {
+            //System.out.println("afuera del for");
+            for (int i = 0; i < postPeriodos.size(); i++) {
+                //System.out.println("adentro del for");
+                if (postPeriodos.get(i) < minPeriodos) {
+                    //System.out.println("entro al if");
+                    minPeriodos = postPeriodos.get(i);
+                    minCurso = postCursos.get(i);
+                } else {
+                    //System.out.println("no entro al if");
+                }
+            }
+            return minCurso;
+
+        }
+        //System.out.println("Post curso no encontrado");
         return -1;
     }
 
     public static int buscarPeriodo(int curso, int[][] grafo) {
-
+        //System.out.println("Buscar periodo Curso:" + curso);
         for (int j = 0; j < env.numPeriodos; j++) {
             if (grafo[curso][j] == 1) {
                 return j;
             }
         }
-        System.out.println("Periodo no encontrado");
+        //System.out.println("Periodo no encontrado");
+        return -1;
+    }
+
+    public static int periodoMayor(int curso, int[][] grafo) {
+        String preRequisito;
+        int cursoPreRequisito;
+        int k = 0;
+        int[] periodo = new int[cursos.get(curso).numPrerequisito];
+        for (int i = 0; i < cursos.get(curso).numPrerequisito; i++) {
+            preRequisito = cursos.get(curso).codPreReq.get(i);
+            cursoPreRequisito = buscarCurso(preRequisito);
+            if (!preRequisito.equalsIgnoreCase("nn")) {
+                for (int j = 0; j < env.numPeriodos; j++) {
+                    if (grafo[cursoPreRequisito][j] == 1) {
+                        periodo[k] = j;
+                        k++;
+                        break;
+                    }
+                }
+            }else{
+                return -1;
+            }
+        }
+
+        return Malla.hallarMaxInt(periodo);
+    }
+
+    public static int buscarPeriodoRt(int curso, int[][] grafo) {
+        //evalua las restricciones
+
+        int periodo = periodoMayor(curso, grafo);
+
+        int[] sumCursos = obetenerSumCursosPorPeriodo(grafo);
+        int[] sumCreditos = obetenerSumCreditosPorPeriodo(grafo);
+        int periodoTemp = periodo + 1;
+        for (int j = periodoTemp; j < env.numPeriodos; j++) {
+            if (sumCursos[j] >= env.maxCursosPermitidos || sumCreditos[j] >= env.maxCreditosPorPeriodo) {
+                periodo++;
+            }
+        }
+
+        return periodo;
+    }
+
+    public static int buscarPreCursoMayor(int curso, int[][] grafo) {
+
+        String preRequisito = "nn";
+        int cursoPreRequisito;
+        int k = 0;
+        int[] periodo = new int[cursos.get(curso).numPrerequisito];
+        int[] preCursos = new int[cursos.get(curso).numPrerequisito];
+        for (int i = 0; i < cursos.get(curso).numPrerequisito; i++) {
+            preRequisito = cursos.get(curso).codPreReq.get(i);
+            cursoPreRequisito = buscarCurso(preRequisito);
+            if (!preRequisito.equalsIgnoreCase("nn")) {
+                for (int j = 0; j < env.numPeriodos; j++) {
+                    if (grafo[cursoPreRequisito][j] == 1) {
+                        periodo[k] = j;
+                        preCursos[k] = cursoPreRequisito;
+                        k++;
+                        break;
+                    }
+                }
+            }
+        }
+        if (!preRequisito.equalsIgnoreCase("nn")) {
+            int periodoMayor = Malla.hallarMaxInt(periodo);
+            for (int i = 0; i < cursos.get(curso).numPrerequisito; i++) {
+                if (periodo[i] == periodoMayor) {
+                    return preCursos[i];
+                }
+            }
+        }
+
+        //return Malla.hallarMaxInt(periodo);
         return -1;
     }
 
@@ -176,8 +295,8 @@ public class Malla {
 
         for (int k = 0; k < cursosP.size(); k++) {
             curso = cursosP.get(k);
-            preCurso = buscarCurso(cursos.get(curso).codPreReq);
-            postCurso = buscarPosCurso(cursos.get(curso).codigo);
+            preCurso = buscarPreCursoMayor(curso, grafo);/*cursos.get(curso).codPreReq*/
+            postCurso = buscarPostCurso(cursos.get(curso).codigo, grafo);
             if (preCurso == -1 && postCurso != -1) {
                 postPeriodo = buscarPeriodo(postCurso, grafo);
                 if (periodoMenor < postPeriodo) {
@@ -201,31 +320,34 @@ public class Malla {
         }
         return -1;
     }
-    
-    
-    public static void cargarDatos(String path,ArrayList<Curso> cursosNuevos) {
+
+    public static void cargarDatos(String path, ArrayList<Curso> cursosNuevos) {
         FileWriter fw;
         PrintWriter pw;
         try {
             fw = new FileWriter(path);
             pw = new PrintWriter(fw);
             Curso curso;
-            for(int i = 0; i < cursosNuevos.size(); i++){
+            String tupla;
+            for (int i = 0; i < cursosNuevos.size(); i++) {
                 curso = cursosNuevos.get(i);
-                
-                pw.println(String.valueOf(curso.codigo+
-                        ","+curso.nombre+
-                        ","+curso.codPreReq+
-                        ","+curso.creditos));
+                tupla = curso.codigo + "," + curso.nombre + "," + "," + curso.numPrerequisito;
+                for (int j = 0; j < curso.numPrerequisito; j++) {
+                    tupla += "," + curso.codPreReq.get(j);
+                }
+                tupla += "," + curso.creditos;
+
+                pw.println(String.valueOf(tupla));
+
             }
-             pw.close();
+            pw.close();
 
         } catch (IOException | NumberFormatException e) {
             System.out.println("Error al cargar datos: " + e.getMessage());
             System.out.println(e.getMessage());
         }
     }
-    
+
     public static void descargarDatos(String path) {
         File ruta = new File(path);
         try {
@@ -234,13 +356,18 @@ public class Malla {
                 String linea;
                 ArrayList<Curso> cursosDescargados = new ArrayList<>();
                 Curso curso;
+                ArrayList<String> codPreReq;
                 while ((linea = bu.readLine()) != null) {
+                    codPreReq = new ArrayList<>();
                     StringTokenizer st = new StringTokenizer(linea, ",");
                     String codigo = st.nextToken();
                     String nombre = st.nextToken();
-                    String codPreReq = st.nextToken();
+                    int numCodPreReq = Integer.parseInt(st.nextToken());
+                    for (int i = 0; i < numCodPreReq; i++) {
+                        codPreReq.add(st.nextToken());
+                    }
                     int creaditos = Integer.parseInt(st.nextToken());
-                    curso = new Curso(codigo, nombre, codPreReq, creaditos);
+                    curso = new Curso(codigo, nombre, numCodPreReq, codPreReq, creaditos);
                     cursosDescargados.add(curso);
 
                 }
@@ -265,8 +392,8 @@ public class Malla {
 
         }
     }
-    
-    public static void cargarPlan(Periodo[] plan){
+
+    public static void cargarPlan(Periodo[] plan) {
         try {
             Field field = Malla.class.getDeclaredField("planOptimizado");
             field.setAccessible(true);
@@ -278,17 +405,24 @@ public class Malla {
 
         }
     }
-    public static void guardarPlan(int[][] mejorGrafo){
-        Periodo[] planOpt=new Periodo[env.numPeriodos];
+
+    public static void guardarPlan(int[][] mejorGrafo) {
+        Periodo[] planOpt = new Periodo[env.numPeriodos];
         Curso curso;
-        for (int i = 0; i < env.numCursos; i++) {
-            for (int j = 0; j < env.numPeriodos; j++) {
-                if (mejorGrafo[i][j]==1) {
-                    curso=new Curso(cursos.get(i).codigo,
-                            cursos.get(i).nombre, 
-                            cursos.get(i).codPreReq, 
+
+        for (int j = 0; j < env.numPeriodos; j++) {
+            planOpt[j] = new Periodo();
+            for (int i = 0; i < env.numCursos; i++) {
+                if (mejorGrafo[i][j] == 1) {
+                    
+                    curso = new Curso(cursos.get(i).codigo,
+                            cursos.get(i).nombre,
+                            cursos.get(i).numPrerequisito,
+                            cursos.get(i).codPreReq,
                             cursos.get(i).creditos);
+                    System.out.println("Curso:" + curso.nombre);
                     planOpt[j].cursos.add(curso);
+                    
                 }
             }
         }

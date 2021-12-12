@@ -15,7 +15,7 @@ import pe.edu.unmsm.modelo.och.Hormiga;
  *
  * @author Windows 10 Pro
  */
-public class coordinador {
+public class Coordinador {
     
     
     public void comenzarGeneracion(){
@@ -47,13 +47,16 @@ public class coordinador {
             colonia.mutacion(tUmbral,i,iterReinicializacion);
             
             if (i-iterReinicializacion>env.IterMax*0.2) {
+                System.out.println("reinicio feromonas:"+i);
                 colonia.inicializarFeromonas();
                 iterReinicializacion=i;
             }
             
             
-            
+            System.out.println(i+":Mejor Calidad de solucion:"+mejorGlobal.calidadDeSolucion);
+            //System.out.println("Peor Calidad de solucion:"+peorActual.calidadDeSolucion);
         }
+        
         Malla.guardarPlan(mejorGlobal.grafo);
     }
     

@@ -37,17 +37,33 @@ public class Colonia {
     }
 
     public Hormiga[] crearColoniaDeHormigas() {
-        Hormiga[] hormigas = new Hormiga[env.numPeriodos];
+        Hormiga[] hormigas = new Hormiga[env.numHormigas];
         int periodo;
-
+        boolean alert=false;
+        int cont=0;
         for (int k = 0; k < env.numHormigas; k++) {
             Hormiga hormiga = new Hormiga();
 
             for (int i = 0; i < env.numCursos; i++) {
                 periodo = reglaDeTransicion(i, hormiga.grafo);
-                hormiga.asignarCursoPeriodo(i, periodo);
+                if (periodo<10) {
+                    hormiga.asignarCursoPeriodo(i, periodo);
+                    cont++;
+                }else{
+                    System.out.println("periodo:"+periodo);
+                    alert=true;
+                    break;
+                }
+                
             }
-
+            
+            if (alert) {
+                //hormiga.asignaCalidadDeSolucionErr(cont);
+                System.out.println("alert");
+            }else{
+                System.out.println("**************************************");
+               
+            }
             hormiga.asignaCalidadDeSolucion();
             depositarFeromonas(hormiga.calidadDeSolucion, hormiga.grafo);
             hormigas[k] = hormiga;
@@ -60,19 +76,22 @@ public class Colonia {
         Double probabilidad = 0.0;
         Double valorAle;
         ArrayList<Double> ruleta = new ArrayList<>();
-        int periodoCurso = buscarPeriodo(curso, grafo);
+        int periodoCurso = Malla.buscarPeriodoRt(curso, grafo);
+        /*
         for (int j = periodoCurso + 1; j < env.numPeriodos; j++) {
             probabilidad += calcularProbabilidad(curso, periodoCurso, grafo);
+            
             ruleta.add(probabilidad);
         }
+        
         valorAle = Math.random() * probabilidad;
 
         for (int i = 0; i < ruleta.size(); i++) {
             if (valorAle <= ruleta.get(i)) {
                 return (i + periodoCurso + 1);
             }
-        }
-        return periodoCurso + 1;
+        }*/
+        return periodoCurso +1;
 
     }
 
@@ -87,14 +106,18 @@ public class Colonia {
     }
 
     public Double calcularProbabilidad(int curso, int periodo, int[][] grafo) {
-
+/*
+        System.out.println("numerador:"+(Math.pow(feromonas[curso][periodo], 1)
+                * Math.pow(heuristica(curso, periodo, grafo), 1)));
+        System.out.println("Denominador:"+subSumaHeu(curso, periodo, grafo));
+        
         return (Math.pow(feromonas[curso][periodo], Malla.cursos.get(curso).creditos)
                 * Math.pow(heuristica(curso, periodo, grafo), env.minCreditosPorPeriodo))
                 / (subSumaHeu(curso, periodo, grafo));
-        /*
+        */
         return (Math.pow(feromonas[curso][periodo], 1.0)
-                * Math.pow(heuristica(curso, periodo, grafo), 2.0))
-                / (subSumaHeu(curso, periodo, grafo));*/
+                * Math.pow(heuristica(curso, periodo, grafo), 1.0))
+                / (subSumaHeu(curso, periodo, grafo));
 
     }
 
@@ -132,32 +155,7 @@ public class Colonia {
         return suma;
     }
 
-    private int buscarPeriodo(int curso, int[][] grafo) {
-        //evalua las restricciones
-
-        int periodo = 0;
-        String preRequisito = Malla.cursos.get(curso).codPreReq;
-        int cursoPreRequisito = Malla.buscarCurso(preRequisito);
-
-        if (!preRequisito.equalsIgnoreCase("nn")) {
-            for (int j = 0; j < env.numPeriodos; j++) {
-                if (grafo[cursoPreRequisito][j] == 1) {
-                    periodo = j;
-                    break;
-                }
-            }
-        }
-        int[] sumCursos = Malla.obetenerSumCursosPorPeriodo(grafo);
-        int[] sumCreditos = Malla.obetenerSumCreditosPorPeriodo(grafo);
-        int periodoTemp = periodo + 1;
-        for (int j = periodoTemp; j < env.numPeriodos; j++) {
-            if (sumCursos[j] >= env.maxCursosPermitidos || sumCreditos[j] >= env.maxCreditosPorPeriodo) {
-                periodo++;
-            }
-        }
-
-        return periodo;
-    }
+    
 
     //____________________________
     public void evaporacion() {

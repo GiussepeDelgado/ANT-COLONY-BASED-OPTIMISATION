@@ -12,6 +12,8 @@ import java.util.ArrayList;
  * @author Windows 10 Pro
  */
 public class Periodo {
-    public ArrayList<Curso> cursos=new ArrayList<>();
-    
+    public ArrayList<Curso> cursos;
+    public Periodo(){
+        cursos=new ArrayList<>();
+    }
 }

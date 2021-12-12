@@ -49,7 +49,18 @@ public class Hormiga {
     }
 
     public void asignarCursoPeriodo(int curso, int periodo) {
+        
         grafo[curso][periodo] = 1;
+        
+       
+        /*
+        for (int i = 0; i < env.numCursos; i++) {
+            for (int j = 0; j < env.numPeriodos; j++) {
+                System.out.print(""+grafo[i][j]+" ");
+            }
+            System.out.println("");
+        }
+*/
         CacheRb reglasBlandas=new CacheRb();
         Malla.evaluarReglas(reglasBlandas, grafo, periodo);
         cache.add(reglasBlandas);
@@ -61,7 +72,9 @@ public class Hormiga {
     public void asignaCalidadDeSolucion() {
         calidadDeSolucion = 1.0 / (Malla.max(grafo)+8*costo());
     }
-    
+    public void asignaCalidadDeSolucionErr(int iter) {
+        calidadDeSolucion = 1.0 / (Malla.max(grafo)+8*costo())-1/(10*iter);
+    }
     public Double costo(){
         int suma=0;
         
