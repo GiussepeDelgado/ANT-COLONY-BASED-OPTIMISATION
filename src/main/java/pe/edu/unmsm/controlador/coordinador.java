@@ -30,17 +30,18 @@ public class Coordinador {
         
         for (int i = 0; i < env.IterMax; i++) {
             
-            hormigas=colonia.crearColoniaDeHormigas();
+            hormigas=colonia.crearColoniaDeHormigas(i);
             colonia.evaporacion();
             mejorActual=colonia.mejorSolucion(hormigas);
             colonia.buscarLocalMejor(mejorActual);
             
             if (i==0) {
                 mejorGlobal=mejorActual;
-            }else if (mejorActual.calidadDeSolucion>mejorGlobal.calidadDeSolucion) {
+            }
+            if (mejorActual.calidadDeSolucion>mejorGlobal.calidadDeSolucion) {
                 mejorGlobal=mejorActual;
             }
-            
+             System.out.println(i+":1Mejor Calidad de solucion:"+mejorGlobal.calidadDeSolucion);
             tUmbral=colonia.calcularTUmbral(mejorGlobal);
             peorActual=colonia.peorSolucion(hormigas);
             colonia.evaporarPeorSolucion(peorActual, mejorGlobal);
@@ -53,8 +54,8 @@ public class Coordinador {
             }
             
             
-            System.out.println(i+":Mejor Calidad de solucion:"+mejorGlobal.calidadDeSolucion);
-            //System.out.println("Peor Calidad de solucion:"+peorActual.calidadDeSolucion);
+            System.out.println(i+":2Mejor Calidad de solucion:"+mejorGlobal.calidadDeSolucion);
+            System.out.println("Mejor Actual Calidad de solucion:"+mejorActual.calidadDeSolucion);
         }
         
         Malla.guardarPlan(mejorGlobal.grafo);

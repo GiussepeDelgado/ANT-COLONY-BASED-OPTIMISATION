@@ -70,7 +70,7 @@ public class Hormiga {
     
     
     public void asignaCalidadDeSolucion() {
-        calidadDeSolucion = 1.0 / (Malla.max(grafo)+8*costo());
+        calidadDeSolucion = 0.003 * (Malla.max(grafo)+8*costo());
     }
     public void asignaCalidadDeSolucionErr(int iter) {
         calidadDeSolucion = 1.0 / (Malla.max(grafo)+8*costo())-1/(10*iter);
