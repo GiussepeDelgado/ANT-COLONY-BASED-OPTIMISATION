@@ -66,6 +66,8 @@ public class app {
     
     public static void mostrar(){
         Curso curso;
+        
+        
         for (int i = 0; i < env.numPeriodos; i++) {
             int ciclo=i+1;
             int numero;

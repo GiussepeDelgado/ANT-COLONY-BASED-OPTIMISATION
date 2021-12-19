@@ -17,10 +17,10 @@ public class Hormiga {
 
     public int[][] grafo;
     public Double calidadDeSolucion;
-    int asignaciones;
+    public int asignaciones;
     ArrayList<CacheRb> cache;
     public Hormiga() {
-
+        
         grafo = new int[env.numCursos][env.numPeriodos];
 
         for (int i = 0; i < env.numCursos; i++) {
@@ -70,7 +70,10 @@ public class Hormiga {
     
     
     public void asignaCalidadDeSolucion() {
-        calidadDeSolucion = costo()-0.5*Malla.max(grafo);
+        
+        
+        calidadDeSolucion=0.02*asignaciones/(1.0*Malla.evaluarGrafo(grafo));//bor
+        //Emer calidadDeSolucion = costo()-0.5*Malla.max(grafo);
     }
     public void asignaCalidadDeSolucionErr(int iter) {
         calidadDeSolucion = 1.0 / (Malla.max(grafo)+8*costo())-1/(10*iter);

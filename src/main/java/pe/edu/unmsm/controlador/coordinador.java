@@ -16,51 +16,60 @@ import pe.edu.unmsm.modelo.och.Hormiga;
  * @author Windows 10 Pro
  */
 public class Coordinador {
-    
-    
-    public void comenzarGeneracion(){
-        Colonia colonia=new Colonia();
+
+    public void comenzarGeneracion() {
+        Colonia colonia = new Colonia();
         Hormiga[] hormigas;
-        Hormiga mejorActual;
-        Hormiga peorActual;
-        Hormiga mejorGlobal=new Hormiga();
+        Hormiga mejorActual= new Hormiga();
+        Hormiga peorActual= new Hormiga();
+        Hormiga mejorGlobal = new Hormiga();
         Double tUmbral;
-        int iterReinicializacion=0;
+        int iterReinicializacion = 0;
         colonia.inicializarFeromonas();
-        
+
+        boolean hormigaEncontrada = false;
+        Hormiga hormigaCon = new Hormiga();
         for (int i = 0; i < env.IterMax; i++) {
-            
-            hormigas=colonia.crearColoniaDeHormigas(i);
-            colonia.evaporacion();
-            mejorActual=colonia.mejorSolucion(hormigas);
-            colonia.buscarLocalMejor(mejorActual);
-            
-            if (i==0) {
-                mejorGlobal=mejorActual;
+
+            if (!hormigaEncontrada) {
+                hormigas = colonia.crearColoniaDeHormigas(hormigaCon);
+
+                colonia.evaporacion();
+                mejorActual = colonia.mejorSolucion(hormigas);
+                colonia.buscarLocalMejor(mejorActual);
+
+                if (i == 0) {
+                    mejorGlobal = mejorActual;
+                }
+                if (mejorActual.calidadDeSolucion > mejorGlobal.calidadDeSolucion) {
+                    mejorGlobal = mejorActual;
+                }
+
+                tUmbral = colonia.calcularTUmbral(mejorGlobal);
+                peorActual = colonia.peorSolucion(hormigas);
+                colonia.evaporarPeorSolucion(peorActual, mejorGlobal);
+                colonia.mutacion(tUmbral, i, iterReinicializacion);
+
+                if (i - iterReinicializacion > env.IterMax * 0.2) {
+                    System.out.println("reinicio feromonas:" + i);
+                    colonia.inicializarFeromonas();
+                    iterReinicializacion = i;
+                }
             }
-            if (mejorActual.calidadDeSolucion>mejorGlobal.calidadDeSolucion) {
-                mejorGlobal=mejorActual;
+
+            if (hormigaCon.asignaciones == env.numCursos) {
+                mejorActual = hormigaCon;
+                hormigaEncontrada = true;
+                mejorGlobal = hormigaCon;
             }
-             
-            tUmbral=colonia.calcularTUmbral(mejorGlobal);
-            peorActual=colonia.peorSolucion(hormigas);
-            colonia.evaporarPeorSolucion(peorActual, mejorGlobal);
-            colonia.mutacion(tUmbral,i,iterReinicializacion);
-            
-            if (i-iterReinicializacion>env.IterMax*0.2) {
-                System.out.println("reinicio feromonas:"+i);
-                colonia.inicializarFeromonas();
-                iterReinicializacion=i;
-            }
-            
-            
-            System.out.println(i+":2Mejor Calidad de solucion:"+mejorGlobal.calidadDeSolucion);
-            System.out.println("Mejor Actual Calidad de solucion:"+mejorActual.calidadDeSolucion);
-            System.out.println("Peor Actual Calidad de solucion:"+peorActual.calidadDeSolucion);
-            
+
+            System.out.print(i + "-> Actual: " + mejorActual.calidadDeSolucion);
+            System.out.print(", Peor Actual: " + peorActual.calidadDeSolucion);
+            System.out.println(", Global: " + mejorGlobal.calidadDeSolucion);
+
         }
-        
+
         Malla.guardarPlan(mejorGlobal.grafo);
     }
-    
+
 }

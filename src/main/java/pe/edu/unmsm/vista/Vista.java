@@ -177,7 +177,7 @@ public final class Vista extends javax.swing.JFrame {
         jLabel48 = new javax.swing.JLabel();
         jScrollPane13 = new javax.swing.JScrollPane();
         Table10 = new javax.swing.JTable();
-        jLabel34 = new javax.swing.JLabel();
+        jlbNombrePlanG = new javax.swing.JLabel();
         pnlPlanGenrado1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         btnGenerarPlan = new javax.swing.JButton();
@@ -1186,10 +1186,10 @@ public final class Vista extends javax.swing.JFrame {
             Table10.getColumnModel().getColumn(3).setMaxWidth(80);
         }
 
-        jLabel34.setFont(new java.awt.Font("DialogInput", 1, 18)); // NOI18N
-        jLabel34.setForeground(new java.awt.Color(51, 0, 102));
-        jLabel34.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel34.setText("Sistemas Plan 2014");
+        jlbNombrePlanG.setFont(new java.awt.Font("DialogInput", 1, 18)); // NOI18N
+        jlbNombrePlanG.setForeground(new java.awt.Color(51, 0, 102));
+        jlbNombrePlanG.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jlbNombrePlanG.setText(" ");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -1244,7 +1244,7 @@ public final class Vista extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel6Layout.createSequentialGroup()
                                 .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jlbNombrePlanG, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(110, 110, 110))))
         );
         jPanel6Layout.setVerticalGroup(
@@ -1253,7 +1253,7 @@ public final class Vista extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jlbNombrePlanG, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(44, 44, 44)
@@ -1489,10 +1489,13 @@ public final class Vista extends javax.swing.JFrame {
     private void btnGenerarPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarPlanActionPerformed
         
         Malla.descargarDatos("src\\main\\java\\pe\\edu\\unmsm\\modelo\\datos\\curriculas\\"+cbxListaPlanes.getSelectedItem()+".txt");
+        
         Coordinador co=new Coordinador();
         co.comenzarGeneracion();
+        Interface.limpiarTablas(Table1, Table2, Table3, Table4, Table5, Table6, Table7, Table8, Table9, Table10);
         Interface.generarTablas(Table1, Table2, Table3, Table4, Table5, Table6, Table7, Table8, Table9, Table10);
-       
+        
+        jlbNombrePlanG.setText(""+cbxListaPlanes.getSelectedItem());
         Lay.show(pnOpciones, "pnlPlanGenerado2");
         
         
@@ -1551,6 +1554,9 @@ public final class Vista extends javax.swing.JFrame {
         String result=Interface.agregarCurso(inputAPCodigo, inputAPNombre, cbxCreditos, listaPreReq, tbListaCursos, plan);
         if (result.equals("Curso Agregado")) {
             jlbAlertAPCursoAdd.setForeground(Color.green);
+            inputAPNombre.setText("");
+            inputAPCodigo.setText("");
+            inputAPPreReq.setText("");
         }else{
             jlbAlertAPCursoAdd.setForeground(Color.red);
         }
@@ -1563,6 +1569,7 @@ public final class Vista extends javax.swing.JFrame {
             jlbAlertAPnombrePlan.setForeground(Color.red);
         }else{
             jlbAlertAPnombrePlan.setForeground(Color.green);
+            inputAPNombrePlan.setText("");
         }
         jlbAlertAPnombrePlan.setText(result);
     }//GEN-LAST:event_btnAgregarPlanActionPerformed
@@ -1653,7 +1660,6 @@ public final class Vista extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
@@ -1701,6 +1707,7 @@ public final class Vista extends javax.swing.JFrame {
     private javax.swing.JLabel jlbMaxCursosPermitidos;
     private javax.swing.JLabel jlbMinCreditosPermitidos;
     private javax.swing.JLabel jlbMinCursosPermitidos;
+    private javax.swing.JLabel jlbNombrePlanG;
     private javax.swing.JLabel jlbNumHormigas;
     private javax.swing.JLabel lbConfig;
     private javax.swing.JLabel lbCurriculas;

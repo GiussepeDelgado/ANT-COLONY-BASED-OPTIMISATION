@@ -36,7 +36,7 @@ public class Colonia {
         }
     }
 
-    public Hormiga[] crearColoniaDeHormigas(int iter) {
+    public Hormiga[] crearColoniaDeHormigas(Hormiga hormigaCond) {
         Hormiga[] hormigas = new Hormiga[env.numHormigas];
         int periodo;
         boolean alert = false;
@@ -45,27 +45,44 @@ public class Colonia {
             Hormiga hormiga = new Hormiga();
 
             for (int i = 0; i < env.numCursos; i++) {
-                periodo = reglaDeTransicion(i, hormiga.grafo, iter);
+                periodo = reglaDeTransicion(i, hormiga.grafo);
                 if (periodo < 10) {
                     hormiga.asignarCursoPeriodo(i, periodo);
                     cont++;
                 } else {
-                    
+
                     alert = true;
                     break;
                 }
 
             }
 
-            
             hormiga.asignaCalidadDeSolucion();
+            if (hormiga.asignaciones==env.numCursos&&hormiga.calidadDeSolucion==Double.POSITIVE_INFINITY) {
+                hormigaCond.grafo=hormiga.grafo;
+                hormigaCond.calidadDeSolucion=hormiga.calidadDeSolucion;
+                hormigaCond.asignaciones=hormiga.asignaciones;
+                hormigaCond.cache=hormiga.cache; 
+                
+                
+            }
+            
             depositarFeromonas(hormiga.calidadDeSolucion, hormiga.grafo);
             hormigas[k] = hormiga;
+            /*
+            System.out.println("**********************************************************************");//borrar
+            System.out.println("");
+            System.out.println("Hormiga: "+k);//borrar
+            System.out.println("calidad: "+hormiga.calidadDeSolucion);//borrar*/
+           // Malla.guardarPlanTest(hormiga.grafo);//borrar
+            //System.out.println("");
+            
         }
         return hormigas;
     }
-    int factor=56;
-    public int reglaDeTransicion(int curso, int[][] grafo, int iter) {
+    int factor = 56;
+
+    public int reglaDeTransicion(int curso, int[][] grafo) {
 
         Double probabilidad = 0.0;
         Double valorAle;
@@ -78,7 +95,14 @@ public class Colonia {
             ruleta.add(probabilidad);
         }*/
         int k = periodoCurso + 1;
-        
+        //bor
+        while (k < env.numPeriodos) {
+            probabilidad += calcularProbabilidad(curso, k, grafo);
+
+            ruleta.add(probabilidad);
+            k++;
+        }
+        /*Emer
         if (iter < factor) {
            
               if (0 <= iter && iter <= factor* 0.2) {
@@ -127,8 +151,14 @@ public class Colonia {
             }
             
         }
+         */
+        valorAle = Math.random() * probabilidad;
 
-
+            for (int i = 0; i < ruleta.size(); i++) {
+                if (valorAle <= ruleta.get(i)) {
+                    return (i + periodoCurso + 1);
+                }
+            }
         return periodoCurso + 1;
 
     }
@@ -152,7 +182,9 @@ public class Colonia {
         return (Math.pow(feromonas[curso][periodo], Malla.cursos.get(curso).creditos)
                 * Math.pow(heuristica(curso, periodo, grafo), env.minCreditosPorPeriodo))
                 / (subSumaHeu(curso, periodo, grafo));
-         */
+         
+        */
+        
         return (Math.pow(feromonas[curso][periodo], 1.0)
                 * Math.pow(heuristica(curso, periodo, grafo), 1.0))
                 / (subSumaHeu(curso, periodo, grafo));

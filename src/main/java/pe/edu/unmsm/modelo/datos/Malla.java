@@ -226,7 +226,7 @@ public class Malla {
                         break;
                     }
                 }
-            }else{
+            } else {
                 return -1;
             }
         }
@@ -331,7 +331,7 @@ public class Malla {
             String tupla;
             for (int i = 0; i < cursosNuevos.size(); i++) {
                 curso = cursosNuevos.get(i);
-                tupla = curso.codigo + "," + curso.nombre + ","+ curso.numPrerequisito;
+                tupla = curso.codigo + "," + curso.nombre + "," + curso.numPrerequisito;
                 for (int j = 0; j < curso.numPrerequisito; j++) {
                     tupla += "," + curso.codPreReq.get(j);
                 }
@@ -379,7 +379,7 @@ public class Malla {
             System.out.println(e.getMessage());
         }
     }
-    
+
     public static ArrayList<Curso> descargarDatosAL(String path) {
         File ruta = new File(path);
         ArrayList<Curso> cursosDescargados = new ArrayList<>();
@@ -387,7 +387,7 @@ public class Malla {
             FileReader fi = new FileReader(ruta);
             try (BufferedReader bu = new BufferedReader(fi)) {
                 String linea;
-                
+
                 Curso curso;
                 ArrayList<String> codPreReq;
                 while ((linea = bu.readLine()) != null) {
@@ -404,9 +404,9 @@ public class Malla {
                     cursosDescargados.add(curso);
 
                 }
-                
+
             }
-            
+
         } catch (IOException | NumberFormatException e) {
             System.out.println("Error al descargar datos: " + e.getMessage());
             System.out.println(e.getMessage());
@@ -425,6 +425,7 @@ public class Malla {
             e.printStackTrace(System.out);
 
         }
+        env.cambiaValor(cursosD.size(), "numCursos");
     }
 
     public static void cargarPlan(Periodo[] plan) {
@@ -443,23 +444,101 @@ public class Malla {
     public static void guardarPlan(int[][] mejorGrafo) {
         Periodo[] planOpt = new Periodo[env.numPeriodos];
         Curso curso;
-
+        int c = 0;
         for (int j = 0; j < env.numPeriodos; j++) {
             planOpt[j] = new Periodo();
             for (int i = 0; i < env.numCursos; i++) {
                 if (mejorGrafo[i][j] == 1) {
-                    
+
                     curso = new Curso(cursos.get(i).codigo,
                             cursos.get(i).nombre,
                             cursos.get(i).numPrerequisito,
                             cursos.get(i).codPreReq,
                             cursos.get(i).creditos);
-                    System.out.println("Curso:" + curso.nombre);
+
                     planOpt[j].cursos.add(curso);
-                    
+                    c++;
                 }
             }
         }
+        System.out.println("Resultado////////////////////////////////////////////");
+        System.out.println("Cursos asignados:" + c);
         cargarPlan(planOpt);
     }
+
+    //
+    public static int evaluarGrafo(int[][] Grafo) {
+
+        int[] sumCursos = obetenerSumCursosPorPeriodo(Grafo);
+        int[] sumCreditos = obetenerSumCreditosPorPeriodo(Grafo);
+        int suma=0;
+        
+        for (int j = 0; j < env.numPeriodos; j++) {
+            if (sumCursos[j]<env.minCursosPermitidos) {
+                suma++;
+            }
+            if (sumCursos[j]>env.maxCursosPermitidos) {
+                suma++;
+            }
+            if (sumCreditos[j]<env.minCreditosPorPeriodo) {
+                suma++;
+            }
+            if (sumCreditos[j]>env.maxCreditosPorPeriodo) {
+                suma++;
+            }
+        }
+        
+        return suma;
+
+    }
+
+    public static Periodo[] convertirGrafoaPlan(int[][] mejorGrafo) {
+        Periodo[] planOpt = new Periodo[env.numPeriodos];
+        Curso curso;
+        int c = 0;
+        for (int j = 0; j < env.numPeriodos; j++) {
+            planOpt[j] = new Periodo();
+            for (int i = 0; i < env.numCursos; i++) {
+                if (mejorGrafo[i][j] == 1) {
+
+                    curso = new Curso(cursos.get(i).codigo,
+                            cursos.get(i).nombre,
+                            cursos.get(i).numPrerequisito,
+                            cursos.get(i).codPreReq,
+                            cursos.get(i).creditos);
+
+                    planOpt[j].cursos.add(curso);
+                    c++;
+                }
+            }
+        }
+        System.out.println("Cursos asignados:" + c);
+        return planOpt;
+    }
+
+    //test
+    public static void guardarPlanTest(int[][] mejorGrafo) {
+        Periodo[] planOpt = convertirGrafoaPlan(mejorGrafo);
+
+        mostrarTest(planOpt);
+
+    }
+
+    public static void mostrarTest(Periodo[] plan) {
+        Curso curso;
+
+        for (int i = 0; i < env.numPeriodos; i++) {
+            int ciclo = i + 1;
+            int numero;
+            System.out.println("____________CICLO " + ciclo + "________________");
+            for (int j = 0; j < plan[i].cursos.size(); j++) {
+
+                curso = plan[i].cursos.get(j);
+                numero = j + 1;
+                System.out.println(numero + ":" + curso.codigo + "," + curso.creditos + "," + curso.nombre);
+
+            }
+        }
+    }
+
 }

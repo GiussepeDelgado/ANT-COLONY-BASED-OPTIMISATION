@@ -107,8 +107,6 @@ public class Interface {
 
     public static void inicializarListaDePlanes(JComboBox<String> lista) {
 
-        
-
         File ruta = new File("src\\main\\java\\pe\\edu\\unmsm\\modelo\\datos\\curriculas\\Curriculas.txt");
         try {
             FileReader fi = new FileReader(ruta);
@@ -116,7 +114,7 @@ public class Interface {
                 String linea;
 
                 while ((linea = bu.readLine()) != null) {
-                   
+
                     lista.addItem(linea);
 
                 }
@@ -129,10 +127,10 @@ public class Interface {
         }
 
     }
-    
-    public static ArrayList<String> descargarPlanes(String path){
-        ArrayList<String> listaPlanes=new ArrayList<>();
-        
+
+    public static ArrayList<String> descargarPlanes(String path) {
+        ArrayList<String> listaPlanes = new ArrayList<>();
+
         File ruta = new File(path);
         try {
             FileReader fi = new FileReader(ruta);
@@ -140,7 +138,7 @@ public class Interface {
                 String linea;
 
                 while ((linea = bu.readLine()) != null) {
-                   
+
                     listaPlanes.add(linea);
 
                 }
@@ -152,6 +150,48 @@ public class Interface {
             System.out.println(e.getMessage());
         }
         return listaPlanes;
+    }
+
+    public static void limpiarTablas(JTable t1,
+            JTable t2,
+            JTable t3,
+            JTable t4,
+            JTable t5,
+            JTable t6,
+            JTable t7,
+            JTable t8,
+            JTable t9,
+            JTable t10) {
+        DefaultTableModel tabla;
+
+        JTable[] tablas = new JTable[env.numPeriodos];
+        tablas[0] = t1;
+        tablas[1] = t2;
+        tablas[2] = t3;
+        tablas[3] = t4;
+        tablas[4] = t5;
+        tablas[5] = t6;
+        tablas[6] = t7;
+        tablas[7] = t8;
+        tablas[8] = t9;
+        tablas[9] = t10;
+
+        for (int i = 0; i < env.numPeriodos; i++) {
+
+            tabla = new DefaultTableModel();
+            tabla.addColumn("ID");
+            tabla.addColumn("CODIGO");
+            tabla.addColumn("NOMBRE");
+            tabla.addColumn("CREDITOS");
+            tabla.addColumn("PRE-REQUISITOS");
+
+           
+
+            tablas[i].setModel(tabla);
+
+            
+        }
+
     }
 
     public static void generarTablas(JTable t1,
@@ -216,8 +256,6 @@ public class Interface {
         System.out.println("fin de generacion");
     }
 
-    
-
     public static void actualizarTablaPreReq(ArrayList<String> lista, JTable tablaReq) {
         DefaultTableModel tabla = new DefaultTableModel();
         tabla.addColumn("ID");
@@ -237,12 +275,12 @@ public class Interface {
             JTextField nombre,
             JComboBox<String> creditos,
             ArrayList<String> preReq,
-            JTable tablaCursos, 
+            JTable tablaCursos,
             ArrayList<Curso> plan) {
-        
+
         ArrayList<String> preReqTemp;
-        preReqTemp=(ArrayList<String>)preReq.clone();
-        
+        preReqTemp = (ArrayList<String>) preReq.clone();
+
         if (codigo.getText().trim().isEmpty()
                 || nombre.getText().trim().isEmpty()) {
             return "Los campos codigo o nombre estan vacios";
@@ -265,7 +303,7 @@ public class Interface {
         tabla.addColumn("PRE-REQUISITOS");
         Object columna[] = new Object[tabla.getColumnCount()];
         for (int i = 0; i < plan.size(); i++) {
-            columna[0] = i+1;
+            columna[0] = i + 1;
             columna[1] = curso.codigo;
             columna[2] = curso.nombre;
             columna[3] = curso.creditos;
@@ -286,47 +324,46 @@ public class Interface {
         }
         return "Curso Agregado";
     }
-    
-    public static String agregarPlan(ArrayList<Curso> plan,JTextField nombrePlan){
-        String pathNombrePlan="src\\main\\java\\pe\\edu\\unmsm\\modelo\\datos\\curriculas\\"+nombrePlan.getText()+".txt";
-        String pathPlanes="src\\main\\java\\pe\\edu\\unmsm\\modelo\\datos\\curriculas\\Curriculas.txt";
-        
+
+    public static String agregarPlan(ArrayList<Curso> plan, JTextField nombrePlan) {
+        String pathNombrePlan = "src\\main\\java\\pe\\edu\\unmsm\\modelo\\datos\\curriculas\\" + nombrePlan.getText() + ".txt";
+        String pathPlanes = "src\\main\\java\\pe\\edu\\unmsm\\modelo\\datos\\curriculas\\Curriculas.txt";
+
         if (nombrePlan.getText().trim().isEmpty()) {
             return "Nombre del plan vacio";
         }
-        
-        File file=new File(pathNombrePlan);
-        
+
+        File file = new File(pathNombrePlan);
+
         if (file.exists()) {
             ArrayList<Curso> listaDescargada;
-            listaDescargada=Malla.descargarDatosAL(pathNombrePlan);
-            for (int i =0 ; i < plan.size(); i++) {
+            listaDescargada = Malla.descargarDatosAL(pathNombrePlan);
+            for (int i = 0; i < plan.size(); i++) {
                 listaDescargada.add(plan.get(i));
             }
-             Malla.cargarDatos(pathNombrePlan,listaDescargada);
+            Malla.cargarDatos(pathNombrePlan, listaDescargada);
             return "Cursos guardados a archivo existente";
-            
+
         }
-        
-        Malla.cargarDatos(pathNombrePlan,plan);
+
+        Malla.cargarDatos(pathNombrePlan, plan);
         actualizarPlanes(pathPlanes, nombrePlan.getText());
-        
+
         return "Plan de estudio guardado";
     }
-    
-    public static void actualizarPlanes(String path,String nombrePlan){
-        
+
+    public static void actualizarPlanes(String path, String nombrePlan) {
+
         ArrayList<String> listaPlanes;
-        listaPlanes=descargarPlanes(path);
+        listaPlanes = descargarPlanes(path);
         listaPlanes.add(nombrePlan);
         FileWriter fw;
         PrintWriter pw;
         try {
             fw = new FileWriter(path);
             pw = new PrintWriter(fw);
-            
+
             for (int i = 0; i < listaPlanes.size(); i++) {
-                
 
                 pw.println(String.valueOf(listaPlanes.get(i)));
 
