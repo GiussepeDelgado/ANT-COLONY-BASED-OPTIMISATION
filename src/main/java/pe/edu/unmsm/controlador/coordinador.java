@@ -41,7 +41,7 @@ public class Coordinador {
             if (mejorActual.calidadDeSolucion>mejorGlobal.calidadDeSolucion) {
                 mejorGlobal=mejorActual;
             }
-             System.out.println(i+":1Mejor Calidad de solucion:"+mejorGlobal.calidadDeSolucion);
+             
             tUmbral=colonia.calcularTUmbral(mejorGlobal);
             peorActual=colonia.peorSolucion(hormigas);
             colonia.evaporarPeorSolucion(peorActual, mejorGlobal);
@@ -56,6 +56,8 @@ public class Coordinador {
             
             System.out.println(i+":2Mejor Calidad de solucion:"+mejorGlobal.calidadDeSolucion);
             System.out.println("Mejor Actual Calidad de solucion:"+mejorActual.calidadDeSolucion);
+            System.out.println("Peor Actual Calidad de solucion:"+peorActual.calidadDeSolucion);
+            
         }
         
         Malla.guardarPlan(mejorGlobal.grafo);

@@ -331,7 +331,7 @@ public class Malla {
             String tupla;
             for (int i = 0; i < cursosNuevos.size(); i++) {
                 curso = cursosNuevos.get(i);
-                tupla = curso.codigo + "," + curso.nombre + "," + "," + curso.numPrerequisito;
+                tupla = curso.codigo + "," + curso.nombre + ","+ curso.numPrerequisito;
                 for (int j = 0; j < curso.numPrerequisito; j++) {
                     tupla += "," + curso.codPreReq.get(j);
                 }
@@ -378,6 +378,40 @@ public class Malla {
             System.out.println("Error al descargar datos: " + e.getMessage());
             System.out.println(e.getMessage());
         }
+    }
+    
+    public static ArrayList<Curso> descargarDatosAL(String path) {
+        File ruta = new File(path);
+        ArrayList<Curso> cursosDescargados = new ArrayList<>();
+        try {
+            FileReader fi = new FileReader(ruta);
+            try (BufferedReader bu = new BufferedReader(fi)) {
+                String linea;
+                
+                Curso curso;
+                ArrayList<String> codPreReq;
+                while ((linea = bu.readLine()) != null) {
+                    codPreReq = new ArrayList<>();
+                    StringTokenizer st = new StringTokenizer(linea, ",");
+                    String codigo = st.nextToken();
+                    String nombre = st.nextToken();
+                    int numCodPreReq = Integer.parseInt(st.nextToken());
+                    for (int i = 0; i < numCodPreReq; i++) {
+                        codPreReq.add(st.nextToken());
+                    }
+                    int creaditos = Integer.parseInt(st.nextToken());
+                    curso = new Curso(codigo, nombre, numCodPreReq, codPreReq, creaditos);
+                    cursosDescargados.add(curso);
+
+                }
+                
+            }
+            
+        } catch (IOException | NumberFormatException e) {
+            System.out.println("Error al descargar datos: " + e.getMessage());
+            System.out.println(e.getMessage());
+        }
+        return cursosDescargados;
     }
 
     public static void cargarCursos(ArrayList<Curso> cursosD) {

@@ -11,6 +11,7 @@ import pe.edu.unmsm.controlador.Coordinador;
 import pe.edu.unmsm.modelo.datos.Curso;
 import pe.edu.unmsm.modelo.datos.Malla;
 import pe.edu.unmsm.modelo.datos.env;
+import pe.edu.unmsm.vista.Vista;
 
 /**
  *
@@ -20,7 +21,10 @@ public class app {
     
     public static void main(String[] args) {
         
-       /*
+        /*
+        Vista v=new Vista();
+        v.setVisible(true);
+       
         ArrayList<Curso> cursosD = new ArrayList<>();
         Curso c1=new Curso("cas","matematica","asdas",1);
         Curso c2=new Curso("c","Programcion","as",4);
@@ -28,11 +32,11 @@ public class app {
         cursosD.add(c1);
         cursosD.add(c2);
         cursosD.add(c3);
-        Malla.cargarDatos("src\\main\\java\\pe\\edu\\unmsm\\modelo\\datos\\curriculas\\Plan2014.txt",cursosD);
+        Malla.cargarDatos("src\\main\\java\\pe\\edu\\unmsm\\modelo\\datos\\curriculas\\Sistemas Plan 2014.txt",cursosD);
 */
        /*
        
-        Malla.descargarDatos("src\\main\\java\\pe\\edu\\unmsm\\modelo\\datos\\curriculas\\Plan2014.txt");
+        Malla.descargarDatos("src\\main\\java\\pe\\edu\\unmsm\\modelo\\datos\\curriculas\\Sistemas Plan 2014.txt");
         String preRequisitos="{";
         for (int i = 0; i < Malla.cursos.size(); i++) {
             
@@ -52,7 +56,8 @@ public class app {
             preRequisitos="{";
         }
         */
-        Malla.descargarDatos("src\\main\\java\\pe\\edu\\unmsm\\modelo\\datos\\curriculas\\Plan2014.txt");
+       
+        Malla.descargarDatos("src\\main\\java\\pe\\edu\\unmsm\\modelo\\datos\\curriculas\\Sistemas Plan 2014.txt");
         Coordinador co=new Coordinador();
         co.comenzarGeneracion();
         mostrar();

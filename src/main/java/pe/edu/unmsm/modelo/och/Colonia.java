@@ -50,27 +50,21 @@ public class Colonia {
                     hormiga.asignarCursoPeriodo(i, periodo);
                     cont++;
                 } else {
-                    System.out.println("periodo:" + periodo);
+                    
                     alert = true;
                     break;
                 }
 
             }
 
-            if (alert) {
-                //hormiga.asignaCalidadDeSolucionErr(cont);
-                System.out.println("alert");
-            } else {
-                System.out.println("**************************************");
-
-            }
+            
             hormiga.asignaCalidadDeSolucion();
             depositarFeromonas(hormiga.calidadDeSolucion, hormiga.grafo);
             hormigas[k] = hormiga;
         }
         return hormigas;
     }
-
+    int factor=56;
     public int reglaDeTransicion(int curso, int[][] grafo, int iter) {
 
         Double probabilidad = 0.0;
@@ -84,17 +78,10 @@ public class Colonia {
             ruleta.add(probabilidad);
         }*/
         int k = periodoCurso + 1;
-        if (env.IterMax < 50) {
-            while (k < env.numPeriodos) {
-                System.out.println("entro");
-                probabilidad += calcularProbabilidad(curso, k, grafo);
-
-                ruleta.add(probabilidad);
-                k++;
-            }
-        }
-        if(env.IterMax>50){
-            if (0 <= iter && iter <= env.IterMax * 0.2) {
+        
+        if (iter < factor) {
+           
+              if (0 <= iter && iter <= factor* 0.2) {
                 //System.out.println("muy bajo");
                 while (k < env.numPeriodos) {
                     probabilidad += calcularProbabilidad(curso, k, grafo);
@@ -103,7 +90,7 @@ public class Colonia {
                     k++;
                 }
             }
-            if (env.IterMax * 0.2 < iter && iter <= env.IterMax * 0.3) {
+            if (factor * 0.2 < iter && iter <= factor * 0.4) {
                 //System.out.println(" bajo");
                 while (k < periodoCurso + 4 && k < env.numPeriodos) {
                     probabilidad += calcularProbabilidad(curso, k, grafo);
@@ -112,7 +99,7 @@ public class Colonia {
                     k++;
                 }
             }
-            if (env.IterMax * 0.3 < iter && iter <= env.IterMax * 0.4) {
+            if (factor * 0.4 < iter && iter <= factor * 0.6) {
                 //System.out.println("bueno");
                 while (k < periodoCurso + 3 && k < env.numPeriodos) {
                     probabilidad += calcularProbabilidad(curso, k, grafo);
@@ -121,7 +108,7 @@ public class Colonia {
                     k++;
                 }
             }
-            if (env.IterMax * 0.4 < iter && iter <= env.IterMax * 0.5) {
+            if (factor * 0.6 < iter && iter <= factor * 0.8) {
                 //System.out.println("excelente");
                 while (k < periodoCurso + 2 && k < env.numPeriodos) {
                     probabilidad += calcularProbabilidad(curso, k, grafo);
@@ -129,17 +116,19 @@ public class Colonia {
                     ruleta.add(probabilidad);
                     k++;
                 }
-            }
 
-            
-        }
-        valorAle = Math.random() * probabilidad;
+            }
+            valorAle = Math.random() * probabilidad;
 
             for (int i = 0; i < ruleta.size(); i++) {
                 if (valorAle <= ruleta.get(i)) {
                     return (i + periodoCurso + 1);
                 }
             }
+            
+        }
+
+
         return periodoCurso + 1;
 
     }
