@@ -13,7 +13,7 @@ import java.lang.reflect.Field;
  */
 public class env {
     
-    public static int IterMax=50;
+    public static int IterMax=100;
     public static int numCursos=66;
     public static int numPeriodos=10;
     public static int numHormigas=8;

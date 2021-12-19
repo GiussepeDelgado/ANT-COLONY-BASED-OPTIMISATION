@@ -5,9 +5,7 @@
  */
 package pe.edu.unmsm.controlador;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import pe.edu.unmsm.modelo.datos.Clave;
+
 import pe.edu.unmsm.modelo.datos.Malla;
 import pe.edu.unmsm.modelo.datos.env;
 import pe.edu.unmsm.modelo.och.Colonia;
@@ -20,11 +18,11 @@ import pe.edu.unmsm.modelo.och.Hormiga;
 public class Coordinador {
 
     
-    public ArrayList<Clave> clavesMejor;
-    public ArrayList<Clave> clavesPeor;
+    
     public void comenzarGeneracion() {
-        clavesMejor= new ArrayList<>();
-        clavesPeor= new ArrayList<>();
+       
+        //Flujo principal de la generacion de soluciones
+        
         Colonia colonia = new Colonia();
         Hormiga[] hormigas;
         Hormiga mejorActual= new Hormiga();
@@ -36,7 +34,7 @@ public class Coordinador {
         boolean hormigaEncontrada = false;
         Hormiga hormigaCon = new Hormiga();
         
-        Clave clave;
+        
         
         for (int i = 0; i < env.IterMax; i++) {
             
@@ -73,10 +71,7 @@ public class Coordinador {
                 mejorGlobal = hormigaCon;
             }
             
-            clave= new Clave(i,mejorActual.calidadDeSolucion);
-            clavesMejor.add(clave);
-            clave= new Clave(i,peorActual.calidadDeSolucion);
-            clavesPeor.add(clave);
+            
             System.out.print(i + "-> Actual: " + mejorActual.calidadDeSolucion);
             System.out.print(", Peor Actual: " + peorActual.calidadDeSolucion);
             System.out.println(", Global: " + mejorGlobal.calidadDeSolucion);

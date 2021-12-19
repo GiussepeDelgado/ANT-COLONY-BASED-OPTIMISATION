@@ -11,7 +11,7 @@ package pe.edu.unmsm.modelo.datos;
  */
 public class CacheRb {
     
-    //Almacena las restricciones blandas
+    
     int minCursosPermitidos;
     int maxCursosPermitidos;
     int minCreditosPorPeriodo;

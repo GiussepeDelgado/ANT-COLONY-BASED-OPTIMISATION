@@ -58,25 +58,17 @@ public class Colonia {
             }
 
             hormiga.asignaCalidadDeSolucion();
-            if (hormiga.asignaciones==env.numCursos&&hormiga.calidadDeSolucion==Double.POSITIVE_INFINITY) {
-                hormigaCond.grafo=hormiga.grafo;
-                hormigaCond.calidadDeSolucion=hormiga.calidadDeSolucion;
-                hormigaCond.asignaciones=hormiga.asignaciones;
-                hormigaCond.cache=hormiga.cache; 
-                
-                
+            if (hormiga.asignaciones == env.numCursos && hormiga.calidadDeSolucion == Double.POSITIVE_INFINITY) {
+                hormigaCond.grafo = hormiga.grafo;
+                hormigaCond.calidadDeSolucion = hormiga.calidadDeSolucion;
+                hormigaCond.asignaciones = hormiga.asignaciones;
+                hormigaCond.cache = hormiga.cache;
+
             }
-            
+
             depositarFeromonas(hormiga.calidadDeSolucion, hormiga.grafo);
             hormigas[k] = hormiga;
-            /*
-            System.out.println("**********************************************************************");//borrar
-            System.out.println("");
-            System.out.println("Hormiga: "+k);//borrar
-            System.out.println("calidad: "+hormiga.calidadDeSolucion);//borrar*/
-           // Malla.guardarPlanTest(hormiga.grafo);//borrar
-            //System.out.println("");
-            
+
         }
         return hormigas;
     }
@@ -88,77 +80,23 @@ public class Colonia {
         Double valorAle;
         ArrayList<Double> ruleta = new ArrayList<>();
         int periodoCurso = Malla.buscarPeriodoRt(curso, grafo);
-        /*
-        for (int j = periodoCurso + 1; j < periodoCurso + 2; j++) {
-            probabilidad += calcularProbabilidad(curso, j, grafo);
-            
-            ruleta.add(probabilidad);
-        }*/
+
         int k = periodoCurso + 1;
-        //bor
+
         while (k < env.numPeriodos) {
             probabilidad += calcularProbabilidad(curso, k, grafo);
 
             ruleta.add(probabilidad);
             k++;
         }
-        /*Emer
-        if (iter < factor) {
-           
-              if (0 <= iter && iter <= factor* 0.2) {
-                //System.out.println("muy bajo");
-                while (k < env.numPeriodos) {
-                    probabilidad += calcularProbabilidad(curso, k, grafo);
 
-                    ruleta.add(probabilidad);
-                    k++;
-                }
-            }
-            if (factor * 0.2 < iter && iter <= factor * 0.4) {
-                //System.out.println(" bajo");
-                while (k < periodoCurso + 4 && k < env.numPeriodos) {
-                    probabilidad += calcularProbabilidad(curso, k, grafo);
-
-                    ruleta.add(probabilidad);
-                    k++;
-                }
-            }
-            if (factor * 0.4 < iter && iter <= factor * 0.6) {
-                //System.out.println("bueno");
-                while (k < periodoCurso + 3 && k < env.numPeriodos) {
-                    probabilidad += calcularProbabilidad(curso, k, grafo);
-
-                    ruleta.add(probabilidad);
-                    k++;
-                }
-            }
-            if (factor * 0.6 < iter && iter <= factor * 0.8) {
-                //System.out.println("excelente");
-                while (k < periodoCurso + 2 && k < env.numPeriodos) {
-                    probabilidad += calcularProbabilidad(curso, k, grafo);
-
-                    ruleta.add(probabilidad);
-                    k++;
-                }
-
-            }
-            valorAle = Math.random() * probabilidad;
-
-            for (int i = 0; i < ruleta.size(); i++) {
-                if (valorAle <= ruleta.get(i)) {
-                    return (i + periodoCurso + 1);
-                }
-            }
-            
-        }
-         */
         valorAle = Math.random() * probabilidad;
 
-            for (int i = 0; i < ruleta.size(); i++) {
-                if (valorAle <= ruleta.get(i)) {
-                    return (i + periodoCurso + 1);
-                }
+        for (int i = 0; i < ruleta.size(); i++) {
+            if (valorAle <= ruleta.get(i)) {
+                return (i + periodoCurso + 1);
             }
+        }
         return periodoCurso + 1;
 
     }
@@ -174,17 +112,7 @@ public class Colonia {
     }
 
     public Double calcularProbabilidad(int curso, int periodo, int[][] grafo) {
-        /*
-        System.out.println("numerador:"+(Math.pow(feromonas[curso][periodo], 1)
-                * Math.pow(heuristica(curso, periodo, grafo), 1)));
-        System.out.println("Denominador:"+subSumaHeu(curso, periodo, grafo));
-        
-        return (Math.pow(feromonas[curso][periodo], Malla.cursos.get(curso).creditos)
-                * Math.pow(heuristica(curso, periodo, grafo), env.minCreditosPorPeriodo))
-                / (subSumaHeu(curso, periodo, grafo));
-         
-        */
-        
+
         return (Math.pow(feromonas[curso][periodo], 1.0)
                 * Math.pow(heuristica(curso, periodo, grafo), 1.0))
                 / (subSumaHeu(curso, periodo, grafo));
@@ -225,7 +153,6 @@ public class Colonia {
         return suma;
     }
 
-    //____________________________
     public void evaporacion() {
         for (int i = 0; i < env.numCursos; i++) {
             for (int j = 0; j < env.numPeriodos; j++) {

@@ -5,8 +5,6 @@
  */
 package pe.edu.unmsm.vista;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -14,30 +12,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.StringTokenizer;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import jdk.nashorn.internal.runtime.ListAdapter;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.event.PlotChangeEvent;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
-import org.jfree.data.category.CategoryDataset;
-import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.xy.XYDataset;
-import org.jfree.data.xy.XYSeries;
-import org.jfree.data.xy.XYSeriesCollection;
-import pe.edu.unmsm.modelo.datos.Clave;
 import pe.edu.unmsm.modelo.datos.Curso;
 import pe.edu.unmsm.modelo.datos.Malla;
-import static pe.edu.unmsm.modelo.datos.Malla.cargarCursos;
 import pe.edu.unmsm.modelo.datos.env;
 
 /**
@@ -201,11 +182,8 @@ public class Interface {
             tabla.addColumn("CREDITOS");
             tabla.addColumn("PRE-REQUISITOS");
 
-           
-
             tablas[i].setModel(tabla);
 
-            
         }
 
     }
@@ -391,70 +369,5 @@ public class Interface {
             System.out.println(e.getMessage());
         }
     }
-    
-    public static void generarGraficaDatos(JPanel contenedor,ArrayList<Clave> clavesMejor,ArrayList<Clave> clavesPeor){
-        DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
-       
-        
-        JFreeChart xylineChart = ChartFactory.createXYLineChart(
-         "Calidad de soluciones",
-         "Iteraciones" ,
-         "Calidad",
-         createDataset( clavesMejor,clavesPeor) ,
-         PlotOrientation.VERTICAL ,
-         true , true , false);
-       /*
-        JFreeChart oChart=ChartFactory.createLineChart("Calidad de soluciones", 
-                                                    "Iteraciones", 
-                                                    "Calidad",  
-                                                    dataSet,
-                                                    PlotOrientation.HORIZONTAL,
-                                                    true,
-                                                    false,
-                                                    false);
-        */
-        ChartPanel chartPanel = new ChartPanel( xylineChart );
-        chartPanel.setPreferredSize( new java.awt.Dimension( 560 , 367 ) );
-        final XYPlot plot = xylineChart.getXYPlot( );
-        XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer( );
-        renderer.setSeriesPaint( 0 , Color.GREEN );
-        //renderer.setSeriesPaint( 1 , Color.RED );
-        renderer.setSeriesStroke( 0 , new BasicStroke( 4.0f ) );
-        //renderer.setSeriesStroke( 1 , new BasicStroke( 3.0f ) );
-        plot.setRenderer( renderer ); 
-        contenedor.setLayout(new java.awt.BorderLayout());
-        contenedor.add(chartPanel);
-        contenedor.validate();
-    }
-    
-    private static XYDataset createDataset( ArrayList<Clave> clavesMejor,ArrayList<Clave> clavesPeor) {
-      
-        final XYSeries mejor = new XYSeries( "Mejor Calidad" ); 
-      
-        int iter;
-        Double calidad;
-        
-        for (int i = 0; i < clavesMejor.size(); i++) {
-            iter=clavesMejor.get(i).x;
-            calidad=clavesMejor.get(i).y;
-            mejor.add(iter,calidad);
-        }
-     
-        final XYSeries peor= new XYSeries( "Peor Calidad" );
-        for (int i = 0; i < clavesPeor.size(); i++) {
-            iter=clavesPeor.get(i).x;
-            calidad=clavesPeor.get(i).y;
-            peor.add(iter,calidad);
-        }
-             
-      
-          
-      
-      final XYSeriesCollection dataset = new XYSeriesCollection( );          
-      //dataset.addSeries( mejor );          
-      dataset.addSeries( peor );          
-      
-      return dataset;
-   }
-    
+
 }

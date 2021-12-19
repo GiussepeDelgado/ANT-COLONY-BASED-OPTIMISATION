@@ -39,31 +39,30 @@ public final class Vista extends javax.swing.JFrame {
     VistaInicio inicio;
     Coordinador co;
     TimerTask task;
+
     public Vista() {
-        
+
         init();
         initComponents();
-      
-        
-       
+
         setLocationRelativeTo(null);
-         Shape forma = new RoundRectangle2D.Double(0, 0, this.getBounds().width, this.getBounds().height, 20, 20);
+        Shape forma = new RoundRectangle2D.Double(0, 0, this.getBounds().width, this.getBounds().height, 20, 20);
         AWTUtilities.setWindowShape(this, forma);
         lbConfig.setForeground(Color.white);
-        lbCurriculas.setForeground(new Color(204,204,204));
-        lbResult.setForeground(new Color(204,204,204));
-        lbResult1.setForeground(new Color(204,204,204));
-        Lay = (CardLayout)(pnOpciones.getLayout());
-        Interface.establecerInfoVariables(jlbInfoNumHormigas, 
-                                            jlbInfoIterMax, 
-                                            jlbInfoMinCursosPermitidos, 
-                                            jlbInfoMaxCursosPermitidos, 
-                                            jlbInfoMinCreditosPermitidos, 
-                                            jlbInfoMaxCreditosPermitidos);
+        lbCurriculas.setForeground(new Color(204, 204, 204));
+        lbResult.setForeground(new Color(204, 204, 204));
+
+        Lay = (CardLayout) (pnOpciones.getLayout());
+        Interface.establecerInfoVariables(jlbInfoNumHormigas,
+                jlbInfoIterMax,
+                jlbInfoMinCursosPermitidos,
+                jlbInfoMaxCursosPermitidos,
+                jlbInfoMinCreditosPermitidos,
+                jlbInfoMaxCreditosPermitidos);
         Interface.inicializarListaDePlanes(cbxListaPlanes);
-        listaPreReq=new ArrayList<>();
-        plan=new ArrayList<>();
-        
+        listaPreReq = new ArrayList<>();
+        plan = new ArrayList<>();
+
     }
 
     /**
@@ -85,8 +84,6 @@ public final class Vista extends javax.swing.JFrame {
         pnlNavPlanGenerado = new javax.swing.JPanel();
         lbResult = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
-        pnlNavResult = new javax.swing.JPanel();
-        lbResult1 = new javax.swing.JLabel();
         pnOpciones = new javax.swing.JPanel();
         pOConfig = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
@@ -186,13 +183,6 @@ public final class Vista extends javax.swing.JFrame {
         btnGenerarPlan = new javax.swing.JButton();
         cbxListaPlanes = new javax.swing.JComboBox<>();
         jLabel31 = new javax.swing.JLabel();
-        pnlResultados = new javax.swing.JPanel();
-        jScrollPane15 = new javax.swing.JScrollPane();
-        jPanel7 = new javax.swing.JPanel();
-        jLabel34 = new javax.swing.JLabel();
-        jSeparator4 = new javax.swing.JSeparator();
-        jlbNombrePlanG1 = new javax.swing.JLabel();
-        pnlResultGrafico1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -296,35 +286,6 @@ public final class Vista extends javax.swing.JFrame {
             }
         });
 
-        pnlNavResult.setBackground(new java.awt.Color(0, 0, 0));
-        pnlNavResult.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                pnlNavResultMouseReleased(evt);
-            }
-        });
-
-        lbResult1.setFont(new java.awt.Font("Candara", 1, 14)); // NOI18N
-        lbResult1.setForeground(new java.awt.Color(204, 204, 204));
-        lbResult1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbResult1.setText("Resultados");
-
-        javax.swing.GroupLayout pnlNavResultLayout = new javax.swing.GroupLayout(pnlNavResult);
-        pnlNavResult.setLayout(pnlNavResultLayout);
-        pnlNavResultLayout.setHorizontalGroup(
-            pnlNavResultLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlNavResultLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lbResult1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        pnlNavResultLayout.setVerticalGroup(
-            pnlNavResultLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlNavResultLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lbResult1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
         javax.swing.GroupLayout pNavLayout = new javax.swing.GroupLayout(pNav);
         pNav.setLayout(pNavLayout);
         pNavLayout.setHorizontalGroup(
@@ -336,8 +297,6 @@ public final class Vista extends javax.swing.JFrame {
                 .addComponent(pCurriculas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlNavPlanGenerado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(pnlNavResult, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31))
@@ -350,8 +309,7 @@ public final class Vista extends javax.swing.JFrame {
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnlNavPlanGenerado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pCurriculas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pConfig, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlNavResult, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(pConfig, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -1429,88 +1387,6 @@ public final class Vista extends javax.swing.JFrame {
 
         pnOpciones.add(pnlPlanGenrado1, "pnlPlanGenerado1");
 
-        jScrollPane15.setBackground(new java.awt.Color(102, 102, 102));
-        jScrollPane15.setBorder(null);
-        jScrollPane15.setAutoscrolls(true);
-        jScrollPane15.setOpaque(false);
-
-        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel7.setPreferredSize(new java.awt.Dimension(939, 3200));
-
-        jLabel34.setFont(new java.awt.Font("DialogInput", 1, 18)); // NOI18N
-        jLabel34.setText("Resultados");
-
-        jlbNombrePlanG1.setFont(new java.awt.Font("DialogInput", 1, 18)); // NOI18N
-        jlbNombrePlanG1.setForeground(new java.awt.Color(51, 0, 102));
-        jlbNombrePlanG1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jlbNombrePlanG1.setText(" ");
-
-        pnlResultGrafico1.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout pnlResultGrafico1Layout = new javax.swing.GroupLayout(pnlResultGrafico1);
-        pnlResultGrafico1.setLayout(pnlResultGrafico1Layout);
-        pnlResultGrafico1Layout.setHorizontalGroup(
-            pnlResultGrafico1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 755, Short.MAX_VALUE)
-        );
-        pnlResultGrafico1Layout.setVerticalGroup(
-            pnlResultGrafico1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 436, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(61, 61, 61)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel7Layout.createSequentialGroup()
-                        .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jlbNombrePlanG1, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(110, 110, 110))
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(87, 87, 87)
-                .addComponent(pnlResultGrafico1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(97, Short.MAX_VALUE))
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlbNombrePlanG1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
-                .addComponent(pnlResultGrafico1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(2652, Short.MAX_VALUE))
-        );
-
-        jScrollPane15.setViewportView(jPanel7);
-
-        javax.swing.GroupLayout pnlResultadosLayout = new javax.swing.GroupLayout(pnlResultados);
-        pnlResultados.setLayout(pnlResultadosLayout);
-        pnlResultadosLayout.setHorizontalGroup(
-            pnlResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlResultadosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane15)
-                .addContainerGap())
-        );
-        pnlResultadosLayout.setVerticalGroup(
-            pnlResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlResultadosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane15, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        pnOpciones.add(pnlResultados, "pnlResultados");
-
         javax.swing.GroupLayout panelBaseLayout = new javax.swing.GroupLayout(panelBase);
         panelBase.setLayout(panelBaseLayout);
         panelBaseLayout.setHorizontalGroup(
@@ -1540,158 +1416,124 @@ public final class Vista extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    public void init(){
-        inicio=new VistaInicio();
+    public void init() {
+        inicio = new VistaInicio();
         inicio.setVisible(true);
         Timer timer = new Timer(10000, (ActionEvent e) -> {
             setVisible(true);
             inicio.setVisible(false);
         });
-        //timer.setDelay(2000);
-        timer.start();
-        
-        /*
-        inicio=new VistaInicio();
-        inicio.setVisible(true);
-        
-        timer.setDelay(1000);
-        
-        setVisible(true);
-        inicio.setVisible(false);
-        
-        task=new TimerTask(){
-            @Override
-            public void run() {
-                
 
-            }
-            
-        };
-        
-        
-        /*
-        try {
-            Thread.sleep(3000);
-            
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Vista.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        */
-        
-        
+        timer.start();
+
     }
     private void pConfigMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pConfigMouseReleased
-        
+
         lbConfig.setForeground(Color.white);
-        lbCurriculas.setForeground(new Color(204,204,204));
-        lbResult.setForeground(new Color(204,204,204));
-        lbResult1.setForeground(new Color(204,204,204));
+        lbCurriculas.setForeground(new Color(204, 204, 204));
+        lbResult.setForeground(new Color(204, 204, 204));
+
         Lay.show(pnOpciones, "pOConfig");
     }//GEN-LAST:event_pConfigMouseReleased
 
     private void pCurriculasMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pCurriculasMouseReleased
-        lbConfig.setForeground(new Color(204,204,204));
+        lbConfig.setForeground(new Color(204, 204, 204));
         lbCurriculas.setForeground(Color.white);
-        lbResult.setForeground(new Color(204,204,204));
-        lbResult1.setForeground(new Color(204,204,204));
+        lbResult.setForeground(new Color(204, 204, 204));
+
         Lay.show(pnOpciones, "pOCurriculas");
-        
-        
+
+
     }//GEN-LAST:event_pCurriculasMouseReleased
 
     private void pnlNavPlanGeneradoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlNavPlanGeneradoMouseReleased
-        lbConfig.setForeground(new Color(204,204,204));
-        lbCurriculas.setForeground(new Color(204,204,204));
-        lbResult1.setForeground(new Color(204,204,204));
+        lbConfig.setForeground(new Color(204, 204, 204));
+        lbCurriculas.setForeground(new Color(204, 204, 204));
+
         lbResult.setForeground(Color.white);
-        
-        
+
         Lay.show(pnOpciones, "pnlPlanGenerado1");
     }//GEN-LAST:event_pnlNavPlanGeneradoMouseReleased
 
     private void btnGenerarPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarPlanActionPerformed
-        
-        Malla.descargarDatos("src\\main\\java\\pe\\edu\\unmsm\\modelo\\datos\\curriculas\\"+cbxListaPlanes.getSelectedItem()+".txt");
-        
-        co=new Coordinador();
+
+        Malla.descargarDatos("src\\main\\java\\pe\\edu\\unmsm\\modelo\\datos\\curriculas\\" + cbxListaPlanes.getSelectedItem() + ".txt");
+
+        co = new Coordinador();
         co.comenzarGeneracion();
         Interface.limpiarTablas(Table1, Table2, Table3, Table4, Table5, Table6, Table7, Table8, Table9, Table10);
         Interface.generarTablas(Table1, Table2, Table3, Table4, Table5, Table6, Table7, Table8, Table9, Table10);
-        
-        jlbNombrePlanG.setText(""+cbxListaPlanes.getSelectedItem());
+
+        jlbNombrePlanG.setText("" + cbxListaPlanes.getSelectedItem());
         Lay.show(pnOpciones, "pnlPlanGenerado2");
-        
-        Interface.generarGraficaDatos(pnlResultGrafico1,co.clavesMejor,co.clavesPeor);
-        
+
+
     }//GEN-LAST:event_btnGenerarPlanActionPerformed
 
     private void btnGuardarConfiguracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarConfiguracionActionPerformed
-        String resultado=Interface.configurarVariables(inputNumHormigas,
-                                      inputIterMax, 
-                                      inputMinCur, 
-                                      inputMaxCur, 
-                                      inputMinCre, 
-                                      inputMaxCre);
-        
+        String resultado = Interface.configurarVariables(inputNumHormigas,
+                inputIterMax,
+                inputMinCur,
+                inputMaxCur,
+                inputMinCre,
+                inputMaxCre);
+
         if (resultado.equals("Configuracion Guardada")) {
-            Interface.establecerInfoVariables(jlbInfoNumHormigas, 
-                                            jlbInfoIterMax, 
-                                            jlbInfoMinCursosPermitidos, 
-                                            jlbInfoMaxCursosPermitidos, 
-                                            jlbInfoMinCreditosPermitidos, 
-                                            jlbInfoMaxCreditosPermitidos);
-            
+            Interface.establecerInfoVariables(jlbInfoNumHormigas,
+                    jlbInfoIterMax,
+                    jlbInfoMinCursosPermitidos,
+                    jlbInfoMaxCursosPermitidos,
+                    jlbInfoMinCreditosPermitidos,
+                    jlbInfoMaxCreditosPermitidos);
+
             jlbAlert.setText(resultado);
             jlbAlert.setForeground(Color.green);
-        }else{
+        } else {
             jlbAlert.setText(resultado);
             jlbAlert.setForeground(Color.red);
         }
     }//GEN-LAST:event_btnGuardarConfiguracionActionPerformed
 
     private void cbxListaPlanesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxListaPlanesActionPerformed
-       
-        
+
+
     }//GEN-LAST:event_cbxListaPlanesActionPerformed
 
-    
-    
+
     private void btnAgregarPreReqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPreReqActionPerformed
-        
-        
-        String preRequisito=inputAPPreReq.getText().trim();
-        
+
+        String preRequisito = inputAPPreReq.getText().trim();
+
         if (preRequisito.isEmpty()) {
             jlbAlertAPPreReq.setText("PreRequisito vacio");
-        }else{
-            
+        } else {
+
             listaPreReq.add(preRequisito);
             Interface.actualizarTablaPreReq(listaPreReq, tbListaPreRequisitos);
             inputAPPreReq.setText("");
         }
-        
+
     }//GEN-LAST:event_btnAgregarPreReqActionPerformed
 
     private void btnAgregarCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCursoActionPerformed
-        
-        String result=Interface.agregarCurso(inputAPCodigo, inputAPNombre, cbxCreditos, listaPreReq, tbListaCursos, plan);
+
+        String result = Interface.agregarCurso(inputAPCodigo, inputAPNombre, cbxCreditos, listaPreReq, tbListaCursos, plan);
         if (result.equals("Curso Agregado")) {
             jlbAlertAPCursoAdd.setForeground(Color.green);
             inputAPNombre.setText("");
             inputAPCodigo.setText("");
             inputAPPreReq.setText("");
-        }else{
+        } else {
             jlbAlertAPCursoAdd.setForeground(Color.red);
         }
         jlbAlertAPCursoAdd.setText(result);
     }//GEN-LAST:event_btnAgregarCursoActionPerformed
 
     private void btnAgregarPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPlanActionPerformed
-        String result=Interface.agregarPlan(plan, inputAPNombrePlan);
+        String result = Interface.agregarPlan(plan, inputAPNombrePlan);
         if (result.equals("Nombre del plan vacio")) {
             jlbAlertAPnombrePlan.setForeground(Color.red);
-        }else{
+        } else {
             jlbAlertAPnombrePlan.setForeground(Color.green);
             inputAPNombrePlan.setText("");
         }
@@ -1702,16 +1544,6 @@ public final class Vista extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void pnlNavResultMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlNavResultMouseReleased
-       lbConfig.setForeground(new Color(204,204,204));
-        lbCurriculas.setForeground(new Color(204,204,204));
-        lbResult.setForeground(new Color(204,204,204));
-        lbResult1.setForeground(Color.white);
-        Lay.show(pnOpciones, "pnlResultados");
-    }//GEN-LAST:event_pnlNavResultMouseReleased
-
-    
-    
     /**
      * @param args the command line arguments
      */
@@ -1792,7 +1624,6 @@ public final class Vista extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
@@ -1808,14 +1639,12 @@ public final class Vista extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane12;
     private javax.swing.JScrollPane jScrollPane13;
     private javax.swing.JScrollPane jScrollPane14;
-    private javax.swing.JScrollPane jScrollPane15;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -1827,7 +1656,6 @@ public final class Vista extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JLabel jlbAlert;
     private javax.swing.JLabel jlbAlertAPCursoAdd;
     private javax.swing.JLabel jlbAlertAPPreReq;
@@ -1844,12 +1672,10 @@ public final class Vista extends javax.swing.JFrame {
     private javax.swing.JLabel jlbMinCreditosPermitidos;
     private javax.swing.JLabel jlbMinCursosPermitidos;
     private javax.swing.JLabel jlbNombrePlanG;
-    private javax.swing.JLabel jlbNombrePlanG1;
     private javax.swing.JLabel jlbNumHormigas;
     private javax.swing.JLabel lbConfig;
     private javax.swing.JLabel lbCurriculas;
     private javax.swing.JLabel lbResult;
-    private javax.swing.JLabel lbResult1;
     private javax.swing.JPanel pConfig;
     private javax.swing.JPanel pCurriculas;
     private javax.swing.JPanel pNav;
@@ -1859,11 +1685,8 @@ public final class Vista extends javax.swing.JFrame {
     private javax.swing.JPanel pnOpciones;
     private javax.swing.JPanel pnlInfo;
     private javax.swing.JPanel pnlNavPlanGenerado;
-    private javax.swing.JPanel pnlNavResult;
     private javax.swing.JPanel pnlPlanGenerado2;
     private javax.swing.JPanel pnlPlanGenrado1;
-    private javax.swing.JPanel pnlResultGrafico1;
-    private javax.swing.JPanel pnlResultados;
     private javax.swing.JTable tbListaCursos;
     private javax.swing.JTable tbListaPreRequisitos;
     // End of variables declaration//GEN-END:variables

@@ -137,7 +137,7 @@ public class Malla {
     }
 
     public static ArrayList<Integer> buscarCursosPorPeriodo(int periodo, int[][] grafo) {
-        //System.out.println("PERIODOMAYOR:" + periodo);
+        
         ArrayList<Integer> cursosDelPeriodo = new ArrayList<>();
 
         for (int i = 0; i < env.numCursos; i++) {
@@ -156,7 +156,7 @@ public class Malla {
                 return i;
             }
         }
-        //System.out.println("Curso no encontrado");
+        
         return -1;
     }
 
@@ -181,21 +181,19 @@ public class Malla {
         int minPeriodos = 1000;
         int minCurso = 1000;
         if (!(postCursos.isEmpty() || postPeriodos.isEmpty())) {
-            //System.out.println("afuera del for");
+            
             for (int i = 0; i < postPeriodos.size(); i++) {
-                //System.out.println("adentro del for");
+                
                 if (postPeriodos.get(i) < minPeriodos) {
-                    //System.out.println("entro al if");
+                    
                     minPeriodos = postPeriodos.get(i);
                     minCurso = postCursos.get(i);
-                } else {
-                    //System.out.println("no entro al if");
-                }
+                } 
             }
             return minCurso;
 
         }
-        //System.out.println("Post curso no encontrado");
+       
         return -1;
     }
 
@@ -206,7 +204,7 @@ public class Malla {
                 return j;
             }
         }
-        //System.out.println("Periodo no encontrado");
+     
         return -1;
     }
 
@@ -235,7 +233,7 @@ public class Malla {
     }
 
     public static int buscarPeriodoRt(int curso, int[][] grafo) {
-        //evalua las restricciones
+       
 
         int periodo = periodoMayor(curso, grafo);
 
@@ -281,7 +279,7 @@ public class Malla {
             }
         }
 
-        //return Malla.hallarMaxInt(periodo);
+       
         return -1;
     }
 
