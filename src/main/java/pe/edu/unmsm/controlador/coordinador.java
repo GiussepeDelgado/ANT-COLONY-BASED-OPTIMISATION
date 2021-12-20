@@ -72,7 +72,7 @@ public class Coordinador {
             }
             
             
-            System.out.print(i + "-> Actual: " + mejorActual.calidadDeSolucion);
+            System.out.print(i + "-> Actual: (" + mejorActual.calidadDeSolucion);
             System.out.print(", Peor Actual: " + peorActual.calidadDeSolucion);
             System.out.println(", Global: " + mejorGlobal.calidadDeSolucion);
 

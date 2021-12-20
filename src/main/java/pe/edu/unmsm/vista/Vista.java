@@ -376,7 +376,7 @@ public final class Vista extends javax.swing.JFrame {
         inputMinCre.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         inputMinCre.setSelectedTextColor(new java.awt.Color(0, 0, 0));
 
-        jlbMaxCreditosPermitidos.setText("Maximo de cursos Permitidos");
+        jlbMaxCreditosPermitidos.setText("Maximo de creditos Permitidos");
 
         inputMaxCre.setBackground(new java.awt.Color(246, 245, 245));
         inputMaxCre.setFont(new java.awt.Font("Serif", 1, 18)); // NOI18N
@@ -1345,23 +1345,21 @@ public final class Vista extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(218, 218, 218)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel31)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(218, 218, 218)
                         .addComponent(cbxListaPlanes, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(69, 69, 69)
-                        .addComponent(btnGenerarPlan, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(232, 232, 232)
-                        .addComponent(jLabel31)))
+                        .addComponent(btnGenerarPlan, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(319, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(101, 101, 101)
+                .addGap(144, 144, 144)
                 .addComponent(jLabel31)
-                .addGap(61, 61, 61)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbxListaPlanes, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGenerarPlan, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
