@@ -5,7 +5,7 @@
  */
 package pe.edu.unmsm.vista;
 
-import com.sun.awt.AWTUtilities;
+//import com.sun.awt.AWTUtilities;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Shape;
@@ -47,7 +47,7 @@ public final class Vista extends javax.swing.JFrame {
 
         setLocationRelativeTo(null);
         Shape forma = new RoundRectangle2D.Double(0, 0, this.getBounds().width, this.getBounds().height, 20, 20);
-        AWTUtilities.setWindowShape(this, forma);
+        //AWTUtilities.setWindowShape(this, forma);
         lbConfig.setForeground(Color.white);
         lbCurriculas.setForeground(new Color(204, 204, 204));
         lbResult.setForeground(new Color(204, 204, 204));

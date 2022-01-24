@@ -5,7 +5,7 @@
  */
 package pe.edu.unmsm.vista;
 
-import com.sun.awt.AWTUtilities;
+//import com.sun.awt.AWTUtilities;
 import java.awt.Shape;
 import java.awt.geom.RoundRectangle2D;
 
@@ -24,7 +24,7 @@ public class VistaInicio extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         Shape forma = new RoundRectangle2D.Double(0, 0, this.getBounds().width, this.getBounds().height, 30, 30);
-        AWTUtilities.setWindowShape(this, forma);
+        //AWTUtilities.setWindowShape(this, forma);
     }
 
     /**
